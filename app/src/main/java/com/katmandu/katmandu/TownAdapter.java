@@ -16,8 +16,10 @@ import retrofit.client.Response;
  */
 public class TownAdapter {
     private static final String TAG = "TownAdapter";
+    private static final int HTTP_ERROR_403 = 403;
     private final TownListActivity activity;
     private final TownStore store;
+    private final PasswordStore passwordStore = new PasswordStore();
 
     public TownAdapter(TownListActivity activity) {
         this.activity = activity;
@@ -25,7 +27,7 @@ public class TownAdapter {
     }
 
     public void downloadData(final TownConnection.SynchCallback synchCallback) {
-        TownConnection.getTowns(PasswordStore.get(activity), new Callback<List<Map>>() {
+        TownConnection.getTowns(passwordStore.get(activity), new Callback<List<Map>>() {
             @Override
             public void success(List<Map> maps, Response response) {
                 for (Map map : maps) {
@@ -42,7 +44,7 @@ public class TownAdapter {
             @Override
             public void failure(RetrofitError error) {
                 Log.e(TAG, error.toString());
-                synchCallback.fail(error);
+                fail(error, synchCallback);
             }
         });
     }
@@ -80,7 +82,7 @@ public class TownAdapter {
         Map map = store.getTown(summary.id);
         map.put(Utl.ID, -1);
 
-        TownConnection.uploadTown(PasswordStore.get(activity), map, new Callback<Map>() {
+        TownConnection.uploadTown(passwordStore.get(activity), map, new Callback<Map>() {
             @Override
             public void success(Map map, Response response) {
                 if (Utl.isValidInt(map, Utl.ID)) {
@@ -95,17 +97,27 @@ public class TownAdapter {
 
             @Override
             public void failure(RetrofitError error) {
-                synchCallback.fail(error);
+                fail(error, synchCallback);
             }
         });
     }
+
+    private void fail(RetrofitError error, TownConnection.SynchCallback synchCallback) {
+        if (error.getResponse().getStatus() == HTTP_ERROR_403){
+            synchCallback.fail(TownConnection.INVALID_PASSWORD);
+        }
+        else {
+            synchCallback.fail(error);
+        }
+    }
+
     private void uploadModifiedAndContinue(final List<TownSummary> summaries, final TownConnection.SynchCallback synchCallback) {
         TownSummary summary = summaries.remove(0);
 
         // TODO upload directly as String, without converting to map and back
         Map map = store.getTown(summary.id);
 
-        TownConnection.uploadTown(PasswordStore.get(activity), map, new Callback<Map>() {
+        TownConnection.uploadTown(passwordStore.get(activity), map, new Callback<Map>() {
             @Override
             public void success(Map map, Response response) {
                 if (Utl.isValidInt(map, Utl.ID)) {
@@ -119,7 +131,7 @@ public class TownAdapter {
 
             @Override
             public void failure(RetrofitError error) {
-                synchCallback.fail(error);
+                fail(error, synchCallback);
             }
         });
     }

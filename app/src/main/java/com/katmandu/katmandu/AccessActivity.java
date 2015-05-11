@@ -9,12 +9,25 @@ import android.widget.EditText;
 
 public class AccessActivity extends ActionBarActivity {
 
+    public static final String WRONG_PASSWORD = "WRONG_PASSWORD";
+    PasswordStore passwordStore = new PasswordStore();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_access);
 
-        if(PasswordStore.exists(this)){
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent().getBooleanExtra(WRONG_PASSWORD, false)){
+            findViewById(R.id.wrongPasswordTextView).setVisibility(View.VISIBLE);
+            passwordStore.delete(this);
+        }
+
+        if(passwordStore.exists(this)){
             goToList(false);
         }
     }
@@ -22,7 +35,7 @@ public class AccessActivity extends ActionBarActivity {
     public void clickOkButton(View v){
         String password = ((EditText) findViewById(R.id.editText)).getText().toString();
 
-        PasswordStore.store(password, this);
+        passwordStore.store(password, this);
 
         goToList(true);
     }

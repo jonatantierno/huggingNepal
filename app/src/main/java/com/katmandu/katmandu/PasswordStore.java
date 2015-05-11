@@ -10,16 +10,21 @@ public class PasswordStore {
     private static final String PASSWORD_STORE = "PASSWORD_STORE";
     private static final String PASSWORD = "PASSWORD";
 
-    public static void store(String password, Context context) {
+    public void store(String password, Context context) {
         SharedPreferences settings = context.getSharedPreferences(PASSWORD_STORE, 0);
         settings.edit().putString(PASSWORD, password).commit();
     }
 
-    public static String get(Context context) {
+    public String get(Context context) {
         return context.getSharedPreferences(PASSWORD_STORE, 0).getString(PASSWORD,null);
     }
 
-    public static boolean exists(Context context) {
+    public boolean exists(Context context) {
         return context.getSharedPreferences(PASSWORD_STORE, 0).contains(PASSWORD);
+    }
+
+    public void delete(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PASSWORD_STORE, 0);
+        settings.edit().remove(PASSWORD).commit();
     }
 }

@@ -30,8 +30,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
         android:text="@string/password"
         android:id="@+id/textView2"
+        android:layout_above="@+id/wrongPasswordTextView"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0000"
+        android:text="@string/wrong_password"
+        android:id="@+id/wrongPasswordTextView"
         android:layout_above="@+id/editText"
         android:layout_centerHorizontal="true" />
 
@@ -43,4 +57,5 @@
         android:layout_below="@+id/editText"
         android:onClick="clickOkButton"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
