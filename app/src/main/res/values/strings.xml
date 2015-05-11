@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Hugging Nepal</string>
+    <string name="title_activity_towns_map">Map</string>
+    <string name="title_activity_access">AccessActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_web">Go to web</string>
+    <string name="web">http://huggingnepal.com/</string>
+    <string name="hugging_nepal">Hugging Nepal</string>
+    <string name="password">Enter password:</string>
+    <string name="ok">OK</string>
+
+    <string name="title_activity_town_list">List of communities</string>
+    <string name="title_activity_town_form">TownFormActivity</string>
+    <string name="community_needs_assessment">Community needs Assessment</string>
+    <string name="to_be_completed_by_leader">To be completed by team leader</string>
+
+    <string-array name="status_array">
+        <item>Black (No info)</item>
+        <item>Green (No needs)</item>
+        <item>Yellow (Basic needs)</item>
+        <item>Red (High/Urgent needs)</item>
+        <item>Blue (Assigned)</item>
+    </string-array>
+    <string-array name="food_array">
+        <item>0 days</item>
+        <item>2-3 days</item>
+        <item>a week</item>
+        <item>more than two weeks</item>
+    </string-array>
+    <string-array name="mood_array">
+        <item>very low</item>
+        <item>low</item>
+        <item>medium</item>
+        <item>high</item>
+        <item>very high</item>
+    </string-array>
+    <string name="title_activity_position">PositionActivity</string>
+    <string name="title_activity_tabbed_form">TabbedFormActivity</string>
+
+    <string name="tab_general">General</string>
+    <string name="tab_food">Food</string>
+    <string name="tab_health">Health</string>
+    <string name="tab_shelter">Shelter</string>
+    <string name="tab_equipment">Equipment</string>
+    <string name="tab_water_and_sanitation">Water/Sanit.</string>
+    <string name="tab_security">Security</string>
+    <string name="tab_others">Others</string>
+
+</resources>

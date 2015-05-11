@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_primary">#AAAAAA</color>
+    <color name="app_primary_pressed">#999999</color>
+    <color name="app_ripple">#888888</color>
+    <color name="app_button_text">#FFFFFF</color>
+</resources>
