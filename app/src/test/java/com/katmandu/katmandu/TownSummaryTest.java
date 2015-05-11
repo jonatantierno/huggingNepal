@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class TownSummaryTest {
     @Test
     public void shouldTurnTownToString(){
-        TownSummary summaryUnderTest = TownSummary.buildUpToDate("Town Name", TownStatus.BLACK, "12345");
+        TownSummary summaryUnderTest = TownSummary.buildUpToDate("Town Name", TownStatus.BLACK, 12345);
         String serialized = summaryUnderTest.toString();
         TownSummary deserialized = TownSummary.deserialize(serialized);
 

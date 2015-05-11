@@ -61,7 +61,7 @@ public class TownListActivity extends ActionBarActivity implements View.OnClickL
 
         prepareListView();
     }
-    private void synchronize(){
+    void synchronize(){
         progressBar.setVisibility(View.VISIBLE);
 
         adapter.uploadData(new TownConnection.SynchCallback() {
@@ -72,13 +72,17 @@ public class TownListActivity extends ActionBarActivity implements View.OnClickL
 
             @Override
             public void fail(Throwable error) {
-                showTextOnUi(error.getMessage());
-                downloadData();
+                if (error == TownConnection.INVALID_PASSWORD) {
+                    requestPassword();
+                } else {
+                    showTextOnUi(error.getMessage());
+                    downloadData();
+                }
             }
         });
     }
 
-    private void downloadData() {
+    void downloadData() {
         progressBar.setVisibility(View.VISIBLE);
         adapter.downloadData(new TownConnection.SynchCallback() {
 
@@ -91,11 +95,22 @@ public class TownListActivity extends ActionBarActivity implements View.OnClickL
 
             @Override
             public void fail(Throwable error) {
-                progressBar.setVisibility(View.GONE);
-                swipeContainer.setRefreshing(false);
-                showTextOnUi(error.getMessage());
+                if (error == TownConnection.INVALID_PASSWORD) {
+                    requestPassword();
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    swipeContainer.setRefreshing(false);
+                    showTextOnUi(error.getMessage());
+                }
             }
         });
+    }
+
+    private void requestPassword() {
+        final Intent intent = new Intent(TownListActivity.this, AccessActivity.class);
+        intent.putExtra(AccessActivity.WRONG_PASSWORD,true);
+        startActivity(intent);
+        finish();
     }
 
     @Override

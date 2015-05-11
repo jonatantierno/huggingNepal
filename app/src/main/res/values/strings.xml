@@ -8,7 +8,8 @@
     <string name="action_web">Go to web</string>
     <string name="web">http://huggingnepal.com/</string>
     <string name="hugging_nepal">Hugging Nepal</string>
-    <string name="password">Enter password:</string>
+    <string name="password">Enter password</string>
+    <string name="wrong_password">Wrong password, please try again</string>
     <string name="ok">OK</string>
 
     <string name="title_activity_town_list">List of communities</string>

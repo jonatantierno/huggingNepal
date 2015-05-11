@@ -17,6 +17,7 @@ import retrofit.RestAdapter;
  */
 public class TownConnection {
     public static final String BASE_URL = "http://huggingnepal.herokuapp.com";
+    public static final Throwable INVALID_PASSWORD = new Exception("Invalid Password");
 
     static void getTowns(final String passwd, final Callback<List<Map>> callback){
         final Thread thread = new Thread(new Runnable() {
@@ -31,20 +32,6 @@ public class TownConnection {
         thread.start();
 
     }
-
-    static Map getMockTown(Context context) {
-        try {
-            Scanner scanner = new Scanner(context.getResources().openRawResource(R.raw.sample_town));
-            scanner.useDelimiter("\\A");
-            Gson gson = new Gson();
-            return gson.fromJson(scanner.next(),Map.class);
-        } catch (Exception e){
-            Log.e("Parse ERROR", e.toString());
-            new RuntimeException("JSON Parsing error");
-        }
-        return null;
-    }
-
     static void uploadTown(final String passwd, final Map townMap, final Callback<Map> callback){
 
         new Thread(new Runnable(){
